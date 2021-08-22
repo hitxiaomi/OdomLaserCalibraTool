@@ -59,7 +59,7 @@ ADD_LIBRARY(csm_eigen
 
 # Various flags
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++14")
 # SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 # SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ggdb")
 # SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -O2 ")
@@ -72,6 +72,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 find_package(catkin REQUIRED)
 
 find_package(Eigen3 REQUIRED)
+find_package(Ceres REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 find_package(catkin REQUIRED COMPONENTS
@@ -185,7 +186,8 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
-  ${EIGEN3_INCLUDE_DIR}
+  ${EIGEN3_INCLUDE_DIRS}
+  ${CERES_INCLUDE_DIRS}
 )
 
 # A test
@@ -193,4 +195,4 @@ include_directories(
 # TARGET_LINK_LIBRARIES(test_calib ${CSM_LIBRARIES} ${catkin_LIBRARIES} ${EIGEN3_INCLUDE_DIR})
 
 ADD_EXECUTABLE(io_test src/io_test.cpp src/io.cpp src/utils.cpp src/scan_match.cpp src/synchronizer.cpp src/solver.cpp)
-TARGET_LINK_LIBRARIES(io_test ${catkin_LIBRARIES} ${EIGEN3_INCLUDE_DIR} csm_eigen)
+TARGET_LINK_LIBRARIES(io_test ${catkin_LIBRARIES}  ${CERES_LIBRARIES} csm_eigen)

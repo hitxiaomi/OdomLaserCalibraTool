@@ -29,8 +29,8 @@ void cSynchronizer::synchronizeLaserOdom(const std::vector<messageIO::odometerDa
     // Find nearly timestamp for odometer.
     for (int j = odom_it; j < odom_data.size(); j++)
     {
-      if ((odom_data[j].timestamp.toSec() < csm_results[i].start_t.toSec()) &&
-          (odom_data[j+1].timestamp.toSec() > csm_results[i].start_t.toSec()))
+      if ((odom_data[j].timestamp.toSec() <= csm_results[i].start_t.toSec()) &&
+          (odom_data[j+1].timestamp.toSec() >= csm_results[i].start_t.toSec()))
       {
         start_t_1 = odom_data[j].timestamp;
         start_t_2 = odom_data[j+1].timestamp;
@@ -41,19 +41,8 @@ void cSynchronizer::synchronizeLaserOdom(const std::vector<messageIO::odometerDa
         odom_it = j;
         continue;
       }
-      if (odom_data[j].timestamp.toSec() == csm_results[i].start_t.toSec())
-      {
-        start_t_1 = odom_data[j].timestamp;
-        start_t_2 = odom_data[j].timestamp;
-        start_v_1_l = odom_data[j].v_l;
-        start_v_1_r = odom_data[j].v_r;
-        start_v_2_l = odom_data[j].v_l;
-        start_v_2_r = odom_data[j].v_r;
-        odom_it = j;
-        continue;
-      }
-      if ((odom_data[j].timestamp.toSec() < csm_results[i].end_t.toSec()) &&
-          (odom_data[j+1].timestamp.toSec() > csm_results[i].end_t.toSec()))
+      if ((odom_data[j].timestamp.toSec() <= csm_results[i].end_t.toSec()) &&
+          (odom_data[j+1].timestamp.toSec() >= csm_results[i].end_t.toSec()))
       {
         end_t_1 = odom_data[j].timestamp;
         end_t_2 = odom_data[j+1].timestamp;
@@ -64,17 +53,7 @@ void cSynchronizer::synchronizeLaserOdom(const std::vector<messageIO::odometerDa
         odom_it = j;
         continue;
       }
-      if (odom_data[j].timestamp.toSec() == csm_results[i].end_t.toSec())
-      {
-        end_t_1 = odom_data[j].timestamp;
-        end_t_2 = odom_data[j].timestamp;
-        end_v_1_l = odom_data[j].v_l;
-        end_v_1_r = odom_data[j].v_r;
-        end_v_2_l = odom_data[j].v_l;
-        end_v_2_r = odom_data[j].v_r;
-        odom_it = j;
-        continue;
-      }
+
     }
 
     float alpha = (csm_results[i].start_t.toSec() - start_t_1.toSec()) /

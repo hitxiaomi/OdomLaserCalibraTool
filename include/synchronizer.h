@@ -1,15 +1,11 @@
-﻿#ifndef CALIB_SYNCHRONIZER_H
-#define CALIB_STNCHRONIZER_H
-
-#endif
+﻿#ifndef SYNCHRONIZER_H
+#define SYNCHRONIZER_H
 
 #include <scan_match.h>
 #include <iostream>
 
 class cSynchronizer {
-
-public:
-
+ public:
   /*!
    * \brief The sync_data struct. Used for
    * storing synchronized data.
@@ -43,10 +39,11 @@ public:
    * \param csm_results
    * \param sync_results
    */
-  void synchronizeLaserOdom(const std::vector<messageIO::odometerData> &odom_data,
-                            const std::vector<cScanMatch::csm_results> &csm_results,
-                            std::vector<cSynchronizer::sync_data> &sync_results);
-
-private:
+  void synchronizeLaserOdom(
+      const std::vector<messageIO::odometerData> &odom_data,
+      const std::vector<cScanMatch::csm_results> &csm_results,
+      std::vector<cSynchronizer::sync_data> &sync_results);
 
 };
+
+#endif  // SYNCHRONIZER_H
